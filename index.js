@@ -29,4 +29,4 @@ const api = new ShowsAPI();
 api.fetchData("l");
 setTimeout(() => api.fetchData("lo"), 10);
 setTimeout(() => api.fetchData("los"), 20);
-setTimeout(() => api.fetchData("lost"), 30);
+//setTimeout(() => api.fetchData("lost"), 30);
