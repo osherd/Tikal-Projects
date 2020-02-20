@@ -10,8 +10,10 @@ function App() {
     <Router>
       <Switch>
         <Route path="/Login" component={Login} />
-        <Route path="/RegisterForm" component={RegisterForm} />
-        <Route path="/" component={Home} />
+        {/* <Route path="/RegisterForm" component={RegisterForm} /> */}
+         <Route path="/Home" component={Home} /> 
+       <Route path="/" component={RegisterForm} /> */}
+
       </Switch>
     </Router>
   );

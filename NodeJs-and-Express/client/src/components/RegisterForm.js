@@ -1,86 +1,110 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+ import React, { useState } from "react";
+ import Button from "@material-ui/core/Button";
+ import CssBaseline from "@material-ui/core/CssBaseline";
+ import TextField from "@material-ui/core/TextField";
+ import Grid from "@material-ui/core/Grid";
+ import Box from "@material-ui/core/Box";
+ import Typography from "@material-ui/core/Typography";
+ import Container from "@material-ui/core/Container";
+ import Avatar from "@material-ui/core/Avatar";
 
- function RegisterForm() {
+const RegisterForm = () => {
+  const [userName, setUserName] = useState();
+  const [nickName, setNickName] = useState();
+  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+  const data ={userName,nickName,password,email};
 
-      return (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className="">
-            <Avatar className="">
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-            <form className="" noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
+  const handleFetchClickLogin = (e, data) => {
+    fetch("http://localhost:3000/users/RegisterForm", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  };
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className="">
+        <Avatar className=""></Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <form className="" noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="uname"
+                name="user"
+                variant="outlined"
+                required
                 fullWidth
-                variant="contained"
-                color="primary"
-              >
-                Sign Up
-              </Button>
-            </form>
-          </div>
-          <Box mt={5}>
-          </Box>
-        </Container>
-      );
-    }
+                id="user"
+                label="user"
+                onChange={e=>setUserName(e.target.value)}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="nickName"
+                label="nick Name"
+                name="nickName"
+                autoComplete="nname"
+                onChange={e=>setNickName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                onChange={e=>setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={e=>setPassword(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={e=>handleFetchClickLogin(e,data)}
+          >
+            Sign Up
+          </Button>
+        </form>
+      </div>
+      <Box mt={5}></Box>
+    </Container>
+  );
+};
 export default RegisterForm;

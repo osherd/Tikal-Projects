@@ -1,33 +1,30 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-
+var Datastore = require("nedb");
+var users = new Datastore({ filename: "./usersDb.db", autoload: true });
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.send('this is the users module');
+/* GET users listing. */
+router.get("/", function(req, res) {
+  res.send("respond with a resource");
 });
-
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    console.log('getting user with id: ', id);
-    res.send({ id, name: 'jhon smith' });
+router.post("/RegisterForm", function(req, res) {
+  const {userName,nickName,password,email}=req.body;
+  users.insert({ userName, nickName,password, email}, function(err, doc) {
+    console.log("Inserted", doc.userName,doc.nickName,doc.password,doc.email,"with",doc.nickName);
+  });
+  res.send({ registerd: true });
 });
-
-router.post('/', (req, res) => {
-    console.log('Creating user', req.body);
-    res.send('ok');
+router.get("/getUsers", function(req, res) {
+  users.find({}, function(err, docs) {
+    res.send(docs);
+  });
 });
-
-router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  console.log('updating user', id, req.body);
-
-  res.send('ok');
-})
-
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  console.log('Deleting user', id);
-  res.send('too bad :)')
-})
-
+router.delete("/deleteUser", function(req, res) {
+  const { user } = req.body;
+  users.remove({ user: user }, function(err, numDeleted) {
+    console.log("Deleted", numDeleted, "user(s)");
+  });
+  res.send({ user: true });
+});
 module.exports = router;
+
