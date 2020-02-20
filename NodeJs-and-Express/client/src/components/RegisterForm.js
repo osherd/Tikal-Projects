@@ -1,36 +1,25 @@
- import React, { useState } from "react";
- import Button from "@material-ui/core/Button";
- import CssBaseline from "@material-ui/core/CssBaseline";
- import TextField from "@material-ui/core/TextField";
- import Grid from "@material-ui/core/Grid";
- import Box from "@material-ui/core/Box";
- import Typography from "@material-ui/core/Typography";
- import Container from "@material-ui/core/Container";
- import Avatar from "@material-ui/core/Avatar";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Avatar from "@material-ui/core/Avatar";
+import {
+  handleFetchClickLogin,
+  handleGetUsers,
+  handleDeleteUser
+} from "./utils";
 
 const RegisterForm = () => {
   const [userName, setUserName] = useState();
   const [nickName, setNickName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-  const data ={userName,nickName,password,email};
+  const data = { userName, nickName, password, email };
 
-  const handleFetchClickLogin = (e, data) => {
-    fetch("http://localhost:3000/users/RegisterForm", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -50,7 +39,7 @@ const RegisterForm = () => {
                 fullWidth
                 id="user"
                 label="user"
-                onChange={e=>setUserName(e.target.value)}
+                onChange={e => setUserName(e.target.value)}
                 autoFocus
               />
             </Grid>
@@ -63,7 +52,7 @@ const RegisterForm = () => {
                 label="nick Name"
                 name="nickName"
                 autoComplete="nname"
-                onChange={e=>setNickName(e.target.value)}
+                onChange={e => setNickName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -75,7 +64,7 @@ const RegisterForm = () => {
                 label="Email"
                 name="email"
                 autoComplete="email"
-                onChange={e=>setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -88,7 +77,7 @@ const RegisterForm = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={e=>setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -97,13 +86,15 @@ const RegisterForm = () => {
             fullWidth
             variant="contained"
             color="primary"
-            onClick={e=>handleFetchClickLogin(e,data)}
+            onClick={e => handleFetchClickLogin(e, data)}
           >
             Sign Up
           </Button>
         </form>
       </div>
       <Box mt={5}></Box>
+      <button onClick={e => e => handleGetUsers(e, data)}>get users</button>
+      <button onClick={e => e => handleDeleteUser(e, data)}>delete user</button>
     </Container>
   );
 };
