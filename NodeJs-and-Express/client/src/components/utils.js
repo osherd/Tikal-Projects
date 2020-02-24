@@ -14,7 +14,7 @@ export const handleFetchClickLogin = (e, data) => {
         console.error("Error:", error);
       });
   };
-  export const handleGetUsers = (e, data) => {
+  export const handleGetUsers = ( data) => {
     fetch("http://localhost:3000/users/getUsers")
       .then(response => response.json())
       .then(data => {
@@ -23,8 +23,8 @@ export const handleFetchClickLogin = (e, data) => {
       .catch(error => console.error("Error:", error));
   };
 
-  export const handleDeleteUser = (e, data) => {
-    fetch("http://localhost:3000/users/getUsers", {
+  export const handleDeleteUser = ( data) => {
+    fetch("http://localhost:3000/users/deleteUser", {
       method: "DELETE", // or 'PUT'
       headers: {
         "Content-Type": "application/json"

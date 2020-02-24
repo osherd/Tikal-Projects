@@ -93,8 +93,8 @@ const RegisterForm = () => {
         </form>
       </div>
       <Box mt={5}></Box>
-      <button onClick={e => e => handleGetUsers(e, data)}>get users</button>
-      <button onClick={e => e => handleDeleteUser(e, data)}>delete user</button>
+      <button onClick={handleGetUsers(data)}>get users</button>
+      <button onClick={handleDeleteUser(data)}>delete user</button>
     </Container>
   );
 };
